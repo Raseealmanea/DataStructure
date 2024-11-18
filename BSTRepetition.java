@@ -57,11 +57,11 @@ public class BSTRepetition {
 
     public int getRepetition (int docID, String word)
     {
-        int value = 0;
+
         if (BSTrank.find(docID) )
             if (BSTrank.retrieve().find(word))
                 return BSTrank.retrieve().retrieve().getCount();
-        return value;
+        return 0;
 
     }
     public void DOCprint()

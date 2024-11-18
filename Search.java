@@ -41,11 +41,11 @@ public class Search {
                 String d = line.substring(pos + 1, line.length() - pos).trim();
                 d = d.substring(0, d.length() - 1);
 
-                d = d.toLowerCase();
-                d = d.replaceAll("[\']", "");
-                d = d.replaceAll("[^a-zA-Z0-9]", " ").trim();
+                d = d.replaceAll("\'", " ");
+                d = d.replaceAll("-", " ");
+                d = d.toLowerCase().replaceAll("[^a-zA-Z0-9 ]", "").trim();
 
-                String[] words = d.split(" ");
+                String[] words = d.split("\\s+");
 
                 for (int i = 0; i < words.length; i++) {
                     String word = words[i].trim();
