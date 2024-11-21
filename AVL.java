@@ -3,19 +3,19 @@ package com.mycompany.mavenproject8;
 import java.security.Key;
 
 public class AVL <K extends Comparable<K>,T> {
-    private Anode<K, T> root;
-    private Anode<K, T> current;
+    private AVLnode<K, T> root;
+    private AVLnode<K, T> current;
     private int count;
 
-    class Anode<K extends Comparable<K>, T> {
+    class AVLnode<K extends Comparable<K>, T> {
         public K Key;
         public T data;
-        Anode<K, T> parent;
-        Anode<K, T> left;
-        Anode<K, T> right;
+        AVLnode<K, T> parent;
+        AVLnode<K, T> left;
+        AVLnode<K, T> right;
         int BalanceF;
 
-        public Anode() {
+        public AVLnode() {
             this.Key = null;
             this.data = null;
             this.parent = null;
@@ -24,7 +24,7 @@ public class AVL <K extends Comparable<K>,T> {
             this.BalanceF = 0;
         }
 
-        public Anode(K Key, T Data) {
+        public AVLnode(K Key, T Data) {
             this.Key = Key;
             this.data = Data;
             this.parent = null;
@@ -33,7 +33,7 @@ public class AVL <K extends Comparable<K>,T> {
             this.BalanceF = 0;
         }
 
-        public Anode(K Key, T data, Anode<K, T> m, Anode<K, T> n, Anode<K, T> p) {
+        public AVLnode(K Key, T data, AVLnode<K, T> m, AVLnode<K, T> n, AVLnode<K, T> p) {
             this.Key = Key;
             this.data = data;
             parent = m;
@@ -46,11 +46,11 @@ public class AVL <K extends Comparable<K>,T> {
             return data;
         }
 
-        public Anode<K, T> getRight() {
+        public AVLnode<K, T> getRight() {
             return right;
         }
 
-        public Anode<K, T> getLeft() {
+        public AVLnode<K, T> getLeft() {
             return left;
         }
 
@@ -93,7 +93,7 @@ public class AVL <K extends Comparable<K>,T> {
             current.data = c;
     }
 
-    private T search(Anode<K, T> node, K Key) {
+    private T search(AVLnode<K, T> node, K Key) {
         if (node == null)
             return null;
         else if (node.Key.compareTo(Key) == 0) {
@@ -106,7 +106,7 @@ public class AVL <K extends Comparable<K>,T> {
 
     }
 
-    private void updateB(Anode<K, T> node) {
+    private void updateB(AVLnode<K, T> node) {
         if (node.BalanceF < -1 || node.BalanceF > 1) {
             balance(node);
             return;
@@ -125,7 +125,7 @@ public class AVL <K extends Comparable<K>,T> {
         }
     }
 
-    void balance(Anode<K, T> node) {
+    void balance(AVLnode<K, T> node) {
         if (node.BalanceF > 0) {
             if (node.right.BalanceF < 0) {
                 rotateR(node.right);
@@ -151,8 +151,8 @@ public class AVL <K extends Comparable<K>,T> {
         return false;
     }
 
-    void rotateR(Anode<K, T> y) {
-        Anode<K, T> w = y.left;
+    void rotateR(AVLnode<K, T> y) {
+        AVLnode<K, T> w = y.left;
         y.left = w.right;
         if (w.right != null) {
             w.right.parent = y;
@@ -172,8 +172,8 @@ public class AVL <K extends Comparable<K>,T> {
         w.BalanceF = w.BalanceF + 1 + Math.max(0, y.BalanceF);
     }
 
-    void rotateL(Anode<K, T> y) {
-        Anode<K, T> w = y.right;
+    void rotateL(AVLnode<K, T> y) {
+        AVLnode<K, T> w = y.right;
         y.right = w.left;
         if (w.left != null) {
             w.left.parent = y;
@@ -194,9 +194,9 @@ public class AVL <K extends Comparable<K>,T> {
     }
 
     public boolean insert(K Key, T data) {
-        Anode<K, T> node = new Anode<K, T>(Key, data);
-        Anode<K, T> p = null;
-        Anode<K, T> curr = this.root;
+        AVLnode<K, T> node = new AVLnode<K, T>(Key, data);
+        AVLnode<K, T> p = null;
+        AVLnode<K, T> curr = this.root;
 
         while (curr != null) {
             p = curr;
@@ -224,8 +224,8 @@ public class AVL <K extends Comparable<K>,T> {
 
     public boolean remove(K key) {
         K l = key;
-        Anode<K, T> p = root;
-        Anode<K, T> q = null;
+        AVLnode<K, T> p = root;
+        AVLnode<K, T> q = null;
 
         while (p != null) {
             if (l.compareTo(p.Key) < 0) {
@@ -238,7 +238,7 @@ public class AVL <K extends Comparable<K>,T> {
             else{
                 if((p.left!=null)&&(p.right!=null))
                 {
-                    Anode<K, T> min =p.right;
+                    AVLnode<K, T> min =p.right;
                     q=p;
                     while (min.left!=null){
                         q=min;
@@ -279,7 +279,7 @@ public class AVL <K extends Comparable<K>,T> {
         if(root!=null)
             loopTree(root);
     }
-    public void loopTree(Anode<K,T> node){
+    public void loopTree(AVLnode<K,T> node){
     if(node==null)
         return;
         loopTree(node.left);
@@ -291,7 +291,7 @@ public class AVL <K extends Comparable<K>,T> {
         if(root!=null)
             loopTreeT(root);
     }
-    public void loopTreeT(Anode<K,T> node){
+    public void loopTreeT(AVLnode<K,T> node){
         if(node==null)
             return;
         loopTreeT(node.left);
