@@ -101,7 +101,7 @@ public class Search {
 
     public void RepetitionRetrieval(String str)
     {
-        this.bstrepetition.FN(str);
+        bstrepetition.FN(str);
     }
 
 

@@ -19,7 +19,8 @@ public class BST_InvertedIndex {
         {
             count ++;
             WordCount t = new WordCount ();
-            t.setVocab(new Vocab(word));
+            Vocab v=new Vocab(word);
+            t.setVocab(v);
             t.add_docNumber(docID);
             invertedindexBST.insert(word, t);
             return true;
@@ -37,7 +38,8 @@ public class BST_InvertedIndex {
 
             count ++;
             WordCount t = new WordCount ();
-            t.setVocab(new Vocab(word));
+            Vocab v=new Vocab(word);
+            t.setVocab(v);
             t.add_docNumber(docID);
             invertedindexBST.insert(word, t);
             return true;

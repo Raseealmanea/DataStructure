@@ -17,7 +17,8 @@ public class BSTRepetition {
         if (BSTrank.empty())
         {
             BSTtree <String,RepetitionW> miniRepetitionW= new BSTtree <String,RepetitionW>();
-            miniRepetitionW.insert(Word, new RepetitionW (Word,1));
+            RepetitionW r= new RepetitionW (Word,1);
+            miniRepetitionW.insert(Word,r);
 
             BSTrank.insert(Documentid, miniRepetitionW);
             return true;
@@ -35,12 +36,16 @@ public class BSTRepetition {
                     BSTrank.update(miniRank);
                     return false;
                 }
-                miniRank.insert(Word, new RepetitionW (Word , 1));
+                RepetitionW r= new RepetitionW (Word,1);
+
+                miniRank.insert(Word, r);
                 BSTrank.update(miniRank);
                 return true;
             }
             BSTtree <String,RepetitionW> miniRank= new BSTtree <String,RepetitionW>();
-            miniRank.insert(Word, new RepetitionW (Word,1));
+            RepetitionW r= new RepetitionW (Word,1);
+
+            miniRank.insert(Word, r);
 
             BSTrank.insert(Documentid, miniRank);
             return true;

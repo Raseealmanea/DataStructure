@@ -20,7 +20,6 @@ public class NodeLinkedList<T> {
         data = val;
         next = null;
     }
-    // Setters/Getters...
 
     public T getData() {
         return data;

@@ -15,10 +15,12 @@ public class ALLInfo {
     public int size() {
       return allInfo.count;
     }
+
     public boolean ADD(int FileID, String word){
        if(allInfo.empty()){
            WordCount wc=new WordCount();
-           wc.setVocab(new Vocab(word));
+           Vocab v=new Vocab(word);
+           wc.setVocab(v);
            wc.add_docNumber(FileID);
            allInfo.insert(wc);
            return true;
@@ -44,7 +46,8 @@ public class ALLInfo {
        }
       else{
             WordCount wc = new WordCount();
-            wc.setVocab(new Vocab(word));
+              Vocab v=new Vocab(word);
+              wc.setVocab(v);
             wc.add_docNumber(FileID);
             allInfo.insert(wc);
         }

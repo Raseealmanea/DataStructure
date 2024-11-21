@@ -29,7 +29,7 @@ public class RepetitionW {
 
     public int getCount ()
     {
-        return this.count;
+        return count;
     }
 
     public Vocab getVocab()
@@ -44,7 +44,7 @@ public class RepetitionW {
 
     @Override
     public String toString() {
-        return word + ", " + count ;
+        return word + " " + count ;
     }
 
 }
