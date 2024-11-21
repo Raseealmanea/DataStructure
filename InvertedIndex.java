@@ -2,7 +2,6 @@
 
 package com.mycompany.mavenproject8;
 
-import java.util.Locale;
 
 public class InvertedIndex {
 

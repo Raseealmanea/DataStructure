@@ -94,22 +94,22 @@ public class BSTRepetition {
             }
         }
 
-        mergesort(freqs, 0, index-1 );
+        concatsort(freqs, 0, index-1 );
 
         for ( int x = 0 ; x < index ; x++)
             System.out.println(freqs[x].docID + "\t\t" + freqs[x].f);
     }
 
-    public static void mergesort ( freq [] A , int l , int r ) {
+    public static void concatsort ( freq [] A , int l , int r ) {
         if (l >= r)
             return;
         int m = (l + r) / 2;
-        mergesort(A, l, m);
-        mergesort(A, m + 1, r);
-        merge(A, l, m, r);
+        concatsort(A, l, m);
+        concatsort(A, m + 1, r);
+        concat(A, l, m, r);
     }
 
-    private static void merge ( freq [] A , int l , int m , int r )
+    private static void concat ( freq [] A , int l , int m , int r )
     {
         freq [] B = new freq [ r - l + 1];
         int i = l , j = m + 1 , k = 0;
