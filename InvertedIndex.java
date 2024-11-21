@@ -1,64 +1,66 @@
+
+
 package com.mycompany.mavenproject8;
 
 import java.util.Locale;
 
-public class ALLInfo {
+public class InvertedIndex {
 
     LinkedList <WordCount> allInfo;
 
-    public ALLInfo(){
+    public InvertedIndex(){
         allInfo=new LinkedList<WordCount>() ;
 
     }
 
 
     public int size() {
-      return allInfo.count;
+        return allInfo.count;
     }
 
     public boolean ADD(int FileID, String word){
-       if(allInfo.empty()){
-           WordCount wc=new WordCount();
-           Vocab v=new Vocab(word);
-           wc.setVocab(v);
-           wc.add_docNumber(FileID);
-           allInfo.insert(wc);
-           return true;
-       }
-      else{
-           allInfo.findFirst();
-           while (!allInfo.last() )
-           {
-            if(allInfo.retrieve().word.word.compareTo(word)==0)
-            {
-             WordCount wc=allInfo.retrieve();
-             wc.add_docNumber(FileID);
-             allInfo.update(wc);
-             return false;
-            }
-               allInfo.findNext();
-           }
-          if(allInfo.retrieve().word.word.compareTo(word)==0){
-           WordCount wc=allInfo.retrieve();
-           wc.add_docNumber(FileID);
-           allInfo.update(wc);
-           return false;
-       }
-      else{
-            WordCount wc = new WordCount();
-              Vocab v=new Vocab(word);
-              wc.setVocab(v);
+        if(allInfo.empty()){
+            WordCount wc=new WordCount();
+            Vocab v=new Vocab(word);
+            wc.setVocab(v);
             wc.add_docNumber(FileID);
             allInfo.insert(wc);
+            return true;
         }
+        else{
+            allInfo.findFirst();
+            while (!allInfo.last() )
+            {
+                if(allInfo.retrieve().word.word.compareTo(word)==0)
+                {
+                    WordCount wc=allInfo.retrieve();
+                    wc.add_docNumber(FileID);
+                    allInfo.update(wc);
+                    return false;
+                }
+                allInfo.findNext();
+            }
+            if(allInfo.retrieve().word.word.compareTo(word)==0){
+                WordCount wc=allInfo.retrieve();
+                wc.add_docNumber(FileID);
+                allInfo.update(wc);
+                return false;
+            }
+            else{
+                WordCount wc = new WordCount();
+                Vocab v=new Vocab(word);
+                wc.setVocab(v);
+                wc.add_docNumber(FileID);
+                allInfo.insert(wc);
+            }
             return true;
 
-    }
+        }
 
-}
+    }
     public boolean found(String word){
-    if(allInfo.empty())
-        return false;
+        if(allInfo.empty())
+            return false;
         allInfo.findFirst();
         for(int i=0; i<allInfo.count;i++)
         {
@@ -66,7 +68,7 @@ public class ALLInfo {
                 return true;
             allInfo.findNext();
         }
-       return false;
+        return false;
     }
     public boolean [] function(String str) {
         if (!str.contains("OR") && !str.contains("AND")) {
@@ -103,8 +105,8 @@ public class ALLInfo {
             if (this.found(and[i].toLowerCase().trim()))
                 m1 = this.allInfo.retrieve().getAllDoc();
 
-                for (int n = 0; n<50; i++)
-                    m[n] = m[n] && m1[n];
+            for (int n = 0; n<50; i++)
+                m[n] = m[n] && m1[n];
         }
         return m;
     }
@@ -119,8 +121,8 @@ public class ALLInfo {
             boolean[] m1 = new boolean[50];
             if (this.found(or[i].toLowerCase().trim()))
                 m1 = this.allInfo.retrieve().getAllDoc();
-                for (int n = 0; n<50; i++)
-                    m[n] = m[n] || m1[n];
+            for (int n = 0; n<50; i++)
+                m[n] = m[n] || m1[n];
         }
         return m;
     }
@@ -131,11 +133,11 @@ public class ALLInfo {
 
         else {
             this.allInfo.findFirst();
-           while(!this.allInfo.last()){
+            while(!this.allInfo.last()){
                 System.out.println(allInfo.retrieve());
-               this.allInfo.findNext();
+                this.allInfo.findNext();
             }
             System.out.println(allInfo.retrieve());
         }
-}
+    }
 }

@@ -6,7 +6,7 @@ public class Search {
     int vocab = 0;
 
     pointer Pointer;
-    ALLInfo invertedindex;
+    InvertedIndex invertedindex;
 
     BST_InvertedIndex indexBST;
     BSTRepetition  bstrepetition;
@@ -15,7 +15,7 @@ public class Search {
     public Search ()
     {
         Pointer = new pointer();
-        invertedindex = new ALLInfo();
+        invertedindex = new InvertedIndex();
         indexBST= new BST_InvertedIndex();
         bstrepetition = new BSTRepetition();
     }
