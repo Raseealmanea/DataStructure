@@ -17,7 +17,8 @@ public class main {
         System.out.println("║ 2.  Ranked Retrieval                     ║");
         System.out.println("║ 3.  Indexed Documents                    ║");
         System.out.println("║ 4.  Indexed Tokens                       ║");
-        System.out.println("║ 5.  Exit                                 ║");
+        System.out.println("║ 5.  Term Retrieval                       ║");
+        System.out.println("║ 6.  Exit                                 ║");
         System.out.println("╚══════════════════════════════════════════╝");
         System.out.print("🌟 Please enter your choice: ");
 
@@ -32,68 +33,97 @@ public class main {
     }
 
 
-    public static void Boolean_Retrieval_menu()
+    public static void Boolean_Retrieval()
     {
-        String[] Questions = {
-                "market AND sports",
-                "weather AND warming",
-                "business AND world",
-                "weather OR warming",
-                "market OR sports",
-                "market OR sports AND warming"
-        };
+        System.out.println("╔══════════════════════════════════════════╗");
+        System.out.println("║            Boolean Retrieval             ║");
+        System.out.println("╠══════════════════════════════════════════╣");
+        System.out.println("║ 1.  index                                ║");
+        System.out.println("║ 2.  inverted index                       ║");
+        System.out.println("║ 3.  inverted index using BST             ║");
+        System.out.println("║ 4.  inverted index using AVL             ║");
+        System.out.println("╚══════════════════════════════════════════╝");
+        System.out.print("🌟 Please enter your choice: ");
+        int choice2 = input.nextInt();
+        System.out.print("🌟 Please enter boolean term( AND / OR ): ");
+        String trm=input.nextLine();
+        trm=input.nextLine();
 
-        System.out.println("═══════════════════════════════════════════════════");
-        System.out.println("                  Boolean Retrieval                ");
-        System.out.println("═══════════════════════════════════════════════════\n");
 
-        for (int i = 0; i < Questions.length; i++) {
-            String str = Questions[i];
+        System.out.print("Q#: ");
+        System.out.println(trm);
 
-            System.out.printf("🟆 Query #%d: \"%s\"\n", i + 1, str);
-            System.out.println("───────────────────────────────────────────────");
-            System.out.print("📄 Result Doc IDs: ");
+        System.out.print("Result doc IDs: ");
 
-            printBoolean(SE.Boolean_Retrieval(str, 2)); // Call to your retrieval method
+            printBoolean(SE.Boolean_Retrieval(trm.trim().toUpperCase(), choice2)); // Call to your retrieval method
 
             System.out.println("\n═══════════════════════════════════════════════════\n");
-        }
+
     }
 
     public static void RepetitionMenu() {
-        String[] Questions = {
-                "market sports",
-                "weather warming",
-                "business world market"
-        };
 
-        System.out.println("=========================================");
-        System.out.println("            Ranked Retrieval             ");
-        System.out.println("=========================================\n");
 
-        for (int i = 0; i < Questions.length; i++) {
-            String str = Questions[i];
+        System.out.println("╔══════════════════════════════════════════╗");
+        System.out.println("║            Ranked Retrieval              ║");
+        System.out.println("╠══════════════════════════════════════════╣");
+        System.out.println("║ 1.  index                                ║");
+        System.out.println("║ 2.  inverted index                       ║");
+        System.out.println("║ 3.  inverted index using BST             ║");
+        System.out.println("║ 4.  inverted index using AVL             ║");
+        System.out.println("╚══════════════════════════════════════════╝");
+        System.out.print("🌟 Please enter your choice: ");
+        int choice3 = input.nextInt();
+        System.out.print("🌟 Please enter boolean term( AND / OR ): ");
+        String trm=input.nextLine();
+        trm=input.nextLine();
 
-            System.out.printf(">>> Query %d: \"%s\"\n", i + 1, str);
-            System.out.println("─────────────────────────────────────");
-            System.out.println("DocID\t\tScore");
-            System.out.println("─────────────────────────────────────");
 
-            SE.RepetitionRetrieval(str); // This method displays DocID and Score
+
+        System.out.println("## Q: " + trm);
+
+
+            SE.Ranked_Retrieval(trm,choice3);
 
             System.out.println("=========================================\n");
-        }
+
     }
-    public static void Indexed_Documents_menu()
+    public static void Indexed_Documents()
     {
         System.out.println("** Indexed Documents **");
-        System.out.println("Indexed Documents " + SE.Pointer.pointers.length);
+        System.out.println("Indexed Documents ");
+        SE.Indexed_Documents();
     }
 
-    public static void Indexed_Tokens_menu()
+    public static void Indexed_Tokens()
     {
         System.out.println("######## Indexed Tokens ######## ");
-        System.out.println("tokens " + SE.tokens);
+        System.out.println("tokens ");
+        SE.Indexed_Tokens();
+
+    }
+    public static void TermRetrieval(){
+        System.out.println("╔══════════════════════════════════════════╗");
+        System.out.println("║              Term Retrieval              ║");
+        System.out.println("╠══════════════════════════════════════════╣");
+        System.out.println("║ 1.  index                                ║");
+        System.out.println("║ 2.  inverted index                       ║");
+        System.out.println("║ 3.  inverted index using BST             ║");
+        System.out.println("║ 4.  inverted index using AVL             ║");
+        System.out.println("╚══════════════════════════════════════════╝");
+        System.out.print("🌟 Please enter your choice: ");
+        int choice4 = input.nextInt();
+        System.out.print("🌟 Please enter Term: ");
+        String trm=input.next();
+
+        System.out.println("═══════════════════════════════════════════════════");
+        System.out.println("              Result document Number                ");
+        System.out.println("═══════════════════════════════════════════════════\n");
+        printBoolean(SE.Term_Retrieval(trm.trim().toLowerCase(), choice4 ));
+        System.out.println("\n");
+
+
+
     }
 
     public static void main(String[] args) {
@@ -108,7 +138,7 @@ public class main {
             switch (choice)
             {
                 case 1:
-                    Boolean_Retrieval_menu();
+                    Boolean_Retrieval();
                     break;
 
                 case 2:
@@ -116,20 +146,23 @@ public class main {
                     break;
 
                 case 3:
-                    Indexed_Documents_menu();
+                    Indexed_Documents();
                     break;
 
                 case 4:
-                    Indexed_Tokens_menu();
+                    Indexed_Tokens();
                     break;
 
                 case 5:
+                    TermRetrieval();
+                    break;
+                case 6:
                     break;
 
                 default:
                     System.out.println("bad choice, try again!");
             }
-        } while (choice != 5);
+        } while (choice != 6);
     }
 
 }

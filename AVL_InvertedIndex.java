@@ -1,6 +1,7 @@
 package com.mycompany.mavenproject8;
 
 
+
 public class AVL_InvertedIndex {
 
     AVL<String, WordCount> AVLInverIndex  ;

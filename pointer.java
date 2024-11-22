@@ -75,7 +75,76 @@ public class pointer {
             }
         }
     }
+    public  boolean [] getDocs (String str)
+    {
+        boolean [] result = new boolean [50];
+        for (int i = 0 ; i < result.length ; i++)
+            result[i] = false;
 
+        for (int i = 0 ; i < result.length ; i++)
+            if (pointers[i].found(str))
+                result[i] = true;
+
+        return result;
+    }
+
+    public boolean [] AO_Function (String str )
+    {
+        if (! str.contains(" OR ") && ! str.contains(" AND "))
+        {
+            str = str.toLowerCase().trim();
+            boolean [] r1 = getDocs(str.toLowerCase().trim());
+            return r1;
+        }
+
+        else if (str.contains(" OR ") && str.contains(" AND "))
+        {
+            String [] AND_ORs = str.split(" OR ");
+            boolean []  r1 = AND (AND_ORs[0]);
+
+            for ( int i = 1 ; i < AND_ORs.length ; i++  )
+            {
+                boolean [] r2 =AND (AND_ORs[i]);
+
+                for ( int j = 0 ; j < 50 ; j++ )
+                    r1 [j] = r1[j] || r2[j];
+            }
+            return r1;
+        }
+
+        else  if (str.contains(" AND "))
+            return AND (str);
+
+        return OR (str);
+    }
+
+    public boolean [] AND (String str)
+    {
+        String [] ANDs = str.split(" AND ");
+        boolean [] b1 = getDocs(ANDs[0].toLowerCase().trim());
+
+        for ( int i = 1 ; i< ANDs.length ; i++)
+        {
+            boolean [] b2 = getDocs(ANDs[i].toLowerCase().trim());
+            for ( int j = 0 ; j < 50 ; j++)
+                b1 [j] = b1[j] && b2[j];
+        }
+        return b1;
+    }
+
+    public boolean [] OR (String str)
+    {
+        String [] ORs = str.split(" OR ");
+        boolean [] b1 = getDocs(ORs[0].toLowerCase().trim());
+
+        for ( int i = 1 ; i< ORs.length ; i++)
+        {
+            boolean [] b2 = getDocs(ORs[i].toLowerCase().trim());
+            for ( int j = 0 ; j < 50 ; j++)
+                b1 [j] = b1[j] || b2[j];
+        }
+        return b1;
+    }
 
 }
 

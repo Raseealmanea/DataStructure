@@ -196,4 +196,29 @@ public class BSTtree  <K extends Comparable<K>, T>{
         loopTreeT( node.right);
 
     }
+
+    public void Print()
+    {
+        if (root != null)
+            print(root);
+    }
+
+    private void print (BSTNode<K,T> node)
+    {
+        if (node == null)
+            return;
+        print( node.left );
+
+        System.out.print(node.Key);
+        if (node.value instanceof WordCount )
+        {
+            System.out.print("   docs: ");
+            boolean [] docs = ((WordCount) node.value).getAllDoc();
+            for ( int i  = 0 ; i < 50 ; i++)
+                if ( docs[i])
+                    System.out.print( " " + i + " " );
+            System.out.println("");
+        }
+        print( node.right);
+    }
 }

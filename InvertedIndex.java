@@ -5,138 +5,161 @@ package com.mycompany.mavenproject8;
 
 public class InvertedIndex {
 
-    LinkedList <WordCount> allInfo;
+    LinkedList <WordCount> invertedindex;
 
-    public InvertedIndex(){
-        allInfo=new LinkedList<WordCount>() ;
-
+    public InvertedIndex() {
+        invertedindex = new LinkedList <WordCount>();
     }
 
-
-    public int size() {
-        return allInfo.count;
+    public int size()
+    {
+        return invertedindex.size();
     }
 
-    public boolean ADD(int FileID, String word){
-        if(allInfo.empty()){
-            WordCount wc=new WordCount();
-            Vocab v=new Vocab(word);
-            wc.setVocab(v);
-            wc.add_docNumber(FileID);
-            allInfo.insert(wc);
+    public boolean addNew (int docID, String word)
+    {
+        if (invertedindex.empty())
+        {
+            WordCount t = new WordCount ();
+            t.setVocab(new Vocab (word));
+            t.add_docNumber(docID);
+            invertedindex.insert(t);
             return true;
         }
-        else{
-            allInfo.findFirst();
-            while (!allInfo.last() )
+        else
+        {
+            invertedindex.findFirst();
+            while ( ! invertedindex.last())
             {
-                if(allInfo.retrieve().word.word.compareTo(word)==0)
+                if ( invertedindex.retrieve().word.word.compareTo(word) == 0)
                 {
-                    WordCount wc=allInfo.retrieve();
-                    wc.add_docNumber(FileID);
-                    allInfo.update(wc);
+                    WordCount t = invertedindex.retrieve();
+                    t.add_docNumber(docID);
+                    invertedindex.update(t);
                     return false;
                 }
-                allInfo.findNext();
+                invertedindex.findNext();
             }
-            if(allInfo.retrieve().word.word.compareTo(word)==0){
-                WordCount wc=allInfo.retrieve();
-                wc.add_docNumber(FileID);
-                allInfo.update(wc);
+            if ( invertedindex.retrieve().word.word.compareTo(word) == 0)
+            {
+                WordCount t = invertedindex.retrieve();
+                t.add_docNumber(docID);
+                invertedindex.update(t);
                 return false;
             }
-            else{
-                WordCount wc = new WordCount();
-                Vocab v=new Vocab(word);
-                wc.setVocab(v);
-                wc.add_docNumber(FileID);
-                allInfo.insert(wc);
+            else
+            {
+                WordCount t = new WordCount ();
+                t.setVocab(new Vocab(word));
+                t.add_docNumber(docID);
+                invertedindex.insert(t);
             }
             return true;
-
         }
-
     }
-    public boolean found(String word){
-        if(allInfo.empty())
+
+    public boolean found(String word)
+    {
+        if (invertedindex.empty())
             return false;
-        allInfo.findFirst();
-        for(int i=0; i<allInfo.count;i++)
+
+        invertedindex.findFirst();
+        for ( int i = 0 ; i < invertedindex.count ; i++)
         {
-            if(allInfo.retrieve().word.word.compareTo(word)==0)
+            if ( invertedindex.retrieve().word.word.compareTo(word) == 0)
                 return true;
-            allInfo.findNext();
+            invertedindex.findNext();
         }
         return false;
     }
-    public boolean [] function(String str) {
-        if (!str.contains("OR") && !str.contains("AND")) {
-            boolean[] f = new boolean[50];
+    public boolean [] AND_OR_Function (String str )
+    {
+        if (! str.contains(" OR ") && ! str.contains(" AND "))
+        {
+            boolean [] r1 = new boolean[50];
             str = str.toLowerCase().trim();
 
-            if (this.found(str))
-                f = this.allInfo.retrieve().getAllDoc();
-            return f;
-        } else if (str.contains("OR") && str.contains("AND")) {
-            String[] fun = str.split("OR");
-            boolean[] f = FAnd(fun[0]);
-
-            for (int i = 1; i < fun.length; i++) {
-                boolean[] f2 = FAnd(fun[i]);
-                for (int n = 0; n < 50; n++)
-                    f[n] = f[n] || f2[n];
-            }
-            return f;
-        } else if (str.contains("AND"))
-            return FAnd(str);
-        return FOr(str);
-    }
-
-    public boolean [] FAnd(String str) {
-        String[] and = str.split("AND");
-        boolean[] m = new boolean[50];
-
-        if (this.found(and[0].toLowerCase().trim()))
-            m = this.allInfo.retrieve().getAllDoc();
-
-        for (int i = 1; i < and.length; i++) {
-            boolean[] m1 = new boolean[50];
-            if (this.found(and[i].toLowerCase().trim()))
-                m1 = this.allInfo.retrieve().getAllDoc();
-
-            for (int n = 0; n<50; i++)
-                m[n] = m[n] && m1[n];
+            if (this.found (str))
+                r1 =  this.invertedindex.retrieve().getAllDoc();
+            return r1;
         }
-        return m;
-    }
-    public boolean [] FOr(String str) {
-        String[] or = str.split("OR");
-        boolean[] m = new boolean[50];
 
-        if (this.found(or[0].toLowerCase().trim()))
-            m = this.allInfo.retrieve().getAllDoc();
+        else if (str.contains(" OR ") && str.contains(" AND "))
+        {
+            String [] AND_ORs = str.split(" OR ");
+            boolean []  r1 = AND_Function (AND_ORs[0]);
 
-        for (int i = 1; i < or.length; i++) {
-            boolean[] m1 = new boolean[50];
-            if (this.found(or[i].toLowerCase().trim()))
-                m1 = this.allInfo.retrieve().getAllDoc();
-            for (int n = 0; n<50; i++)
-                m[n] = m[n] || m1[n];
-        }
-        return m;
-    }
+            for ( int i = 1 ; i < AND_ORs.length ; i++  )
+            {
+                boolean [] r2 =AND_Function (AND_ORs[i]);
 
-    public void printFile(int FileID) {
-        if (this.allInfo.empty())
-            System.out.println("ALLInfo is empty");
-
-        else {
-            this.allInfo.findFirst();
-            while(!this.allInfo.last()){
-                System.out.println(allInfo.retrieve());
-                this.allInfo.findNext();
+                for ( int j = 0 ; j < 50 ; j++ )
+                    r1 [j] = r1[j] || r2[j];
             }
-            System.out.println(allInfo.retrieve());
+            return r1;
+        }
+
+        else  if (str.contains(" AND "))
+            return AND_Function (str);
+
+        return OR_Function (str);
+    }
+
+    public boolean [] AND_Function (String str)
+    {
+        String [] ANDs = str.split(" AND ");
+        boolean [] b1 = new boolean [50];
+
+        if (this.found (ANDs[0].toLowerCase().trim()))
+            b1 = this.invertedindex.retrieve().getAllDoc();
+
+        for ( int i = 1 ; i< ANDs.length ; i++)
+        {
+            boolean [] b2 = new boolean [50];
+            if (this.found (ANDs[i].toLowerCase().trim()))
+                b2 = this.invertedindex.retrieve().getAllDoc();
+
+            for ( int j = 0 ; j < 50 ; j++)
+                b1 [j] = b1[j] && b2[j];
+        }
+
+        return b1;
+    }
+
+    public boolean [] OR_Function (String str)
+    {
+        String [] ORs = str.split(" OR ");
+        boolean [] b1 = new boolean [50];
+
+        if (this.found (ORs[0].toLowerCase().trim()))
+            b1 = this.invertedindex.retrieve().getAllDoc();
+
+        for ( int i = 1 ; i< ORs.length ; i++)
+        {
+            boolean [] b2 = new boolean [50];
+            if (this.found (ORs[i].toLowerCase().trim()))
+                b2 = this.invertedindex.retrieve().getAllDoc();
+
+            for ( int j = 0 ; j < 50 ; j++)
+                b1 [j] = b1[j] || b2[j];
+
+        }
+        return b1;
+    }
+
+    public void printDocment()
+    {
+        if (this.invertedindex.empty())
+            System.out.println("Empty Inverted Index");
+        else
+        {
+            this.invertedindex.findFirst();
+            while ( ! this.invertedindex.last())
+            {
+                System.out.println(invertedindex.retrieve());
+                this.invertedindex.findNext();
+            }
+            System.out.println(invertedindex.retrieve());
         }
     }
 }
