@@ -74,7 +74,7 @@ public class main {
         System.out.println("╚══════════════════════════════════════════╝");
         System.out.print("🌟 Please enter your choice: ");
         int choice3 = input.nextInt();
-        System.out.print("🌟 Please enter boolean term( AND / OR ): ");
+        System.out.print("🌟 Please enter boolean term: ");
         String trm=input.nextLine();
         trm=input.nextLine();
 
