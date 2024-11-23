@@ -63,10 +63,6 @@ public class AVLRepetition {
         return value;
 
     }
-    public void DOCprint()
-    {
-        AVLrank.loopT();
-    }
 
     public void FN (String word)
     {

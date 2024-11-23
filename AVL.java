@@ -16,31 +16,23 @@ public class AVL <K extends Comparable<K>,T> {
         int BalanceF;
 
         public AVLnode() {
-            this.Key = null;
-            this.data = null;
-            this.parent = null;
-            this.left = null;
-            this.right = null;
-            this.BalanceF = 0;
-        }
-
-        public AVLnode(K Key, T Data) {
-            this.Key = Key;
-            this.data = Data;
-            this.parent = null;
-            this.left = null;
-            this.right = null;
-            this.BalanceF = 0;
-        }
-
-        public AVLnode(K Key, T data, AVLnode<K, T> m, AVLnode<K, T> n, AVLnode<K, T> p) {
-            this.Key = Key;
-            this.data = data;
-            parent = m;
-            left = n;
-            right = p;
+            Key = null;
+            data = null;
+            parent = null;
+            left = null;
+            right = null;
             BalanceF = 0;
         }
+
+        public AVLnode(K K, T Data) {
+            Key = K;
+            data = Data;
+            parent = null;
+            left = null;
+            right = null;
+            BalanceF = 0;
+        }
+
 
         public T getData() {
             return data;
@@ -75,11 +67,6 @@ public class AVL <K extends Comparable<K>,T> {
         return count;
     }
 
-    public void clear() {
-        root = null;
-        current = null;
-        count = 0;
-    }
 
     public T retrieve() {
         T data = null;

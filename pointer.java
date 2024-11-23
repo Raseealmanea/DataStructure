@@ -56,25 +56,6 @@ public class pointer {
 
     }
 
-    public void addALLFile(int FileID, String[] data) {
-
-        for (int i = 0; i < data.length; i++)
-            pointers[FileID].ADD(data[i]);
-
-    }
-
-    public void printFile(int FileID) {
-        if (pointers[FileID].pointer.empty())
-            System.out.println("File is empty");
-
-        else {
-            pointers[FileID].pointer.findFirst();
-            for (int i = 0; i < pointers[FileID].pointer.count; i++) {
-                System.out.println(pointers[FileID].pointer.retrieve() + " ");
-                pointers[FileID].pointer.findNext();
-            }
-        }
-    }
     public  boolean [] getDocs (String str)
     {
         boolean [] result = new boolean [50];

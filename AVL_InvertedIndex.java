@@ -49,10 +49,7 @@ public class AVL_InvertedIndex {
         return AVLInverIndex.find(word);
     }
 
-    public void DOCprint()
-    {
-        AVLInverIndex.loop();
-    }
+
 
     public boolean [] AO_Function (String S)
     {

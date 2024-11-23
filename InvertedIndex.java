@@ -11,12 +11,8 @@ public class InvertedIndex {
         invertedindex = new LinkedList <WordCount>();
     }
 
-    public int size()
-    {
-        return invertedindex.size();
-    }
 
-    public boolean addNew (int docID, String word)
+    public boolean ADD (int docID, String word)
     {
         if (invertedindex.empty())
         {
@@ -72,7 +68,7 @@ public class InvertedIndex {
         }
         return false;
     }
-    public boolean [] AND_OR_Function (String str )
+    public boolean [] AO_Function (String str )
     {
         if (! str.contains(" OR ") && ! str.contains(" AND "))
         {
@@ -87,11 +83,11 @@ public class InvertedIndex {
         else if (str.contains(" OR ") && str.contains(" AND "))
         {
             String [] AND_ORs = str.split(" OR ");
-            boolean []  r1 = AND_Function (AND_ORs[0]);
+            boolean []  r1 = AND (AND_ORs[0]);
 
             for ( int i = 1 ; i < AND_ORs.length ; i++  )
             {
-                boolean [] r2 =AND_Function (AND_ORs[i]);
+                boolean [] r2 =AND (AND_ORs[i]);
 
                 for ( int j = 0 ; j < 50 ; j++ )
                     r1 [j] = r1[j] || r2[j];
@@ -100,12 +96,12 @@ public class InvertedIndex {
         }
 
         else  if (str.contains(" AND "))
-            return AND_Function (str);
+            return AND (str);
 
-        return OR_Function (str);
+        return OR (str);
     }
 
-    public boolean [] AND_Function (String str)
+    public boolean [] AND (String str)
     {
         String [] ANDs = str.split(" AND ");
         boolean [] b1 = new boolean [50];
@@ -126,7 +122,7 @@ public class InvertedIndex {
         return b1;
     }
 
-    public boolean [] OR_Function (String str)
+    public boolean [] OR (String str)
     {
         String [] ORs = str.split(" OR ");
         boolean [] b1 = new boolean [50];

@@ -30,7 +30,6 @@ public class IndexRanked {
             return false;
         }
     }
-    //===========================================================
 
     File [] indexes;
     freq [] freqs;
@@ -51,36 +50,7 @@ public class IndexRanked {
         indexes[docID].ADD(data);
     }
 
-    public void printFile (int docID)
-    {
-        if ( indexes[docID].index.empty())
-            System.out.println("Empty Document");
-        else
-        {
-            indexes[docID].index.findFirst();
-            for ( int i = 0; i< indexes[docID].index.count ; i++)
-            {
-                System.out.print (indexes[docID].index.retrieve() + " ");
-                indexes[docID].index.findNext();
-            }
-        }
-    }
-    public  boolean [] getDocs (String str)
-    {
-        boolean [] result = new boolean [50];
-        for (int i = 0 ; i < result.length ; i++)
-            result[i] = false;
-
-        for (int i = 0 ; i < result.length ; i++)
-            if (indexes[i].found(str))
-                result[i] = true;
-
-        return result;
-    }
-
-
-
-    public void TF(String str)
+    public void FN(String str)
     {
         str = str.toLowerCase().trim();
         String [] words = str.split(" ");
@@ -117,7 +87,6 @@ public class IndexRanked {
             System.out.println(freqs[x].docID + "\t\t" + freqs[x].f);
     }
 
-    //=================================================================
     public static void concatsort ( freq [] A , int l , int r )
     {
         if ( l >= r )

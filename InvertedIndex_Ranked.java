@@ -87,7 +87,7 @@ public class InvertedIndex_Ranked {
         }
     }
 
-    public void TF(String str)
+    public void FN(String str)
     {
         str = str.toLowerCase().trim();
         String [] words = str.split(" ");

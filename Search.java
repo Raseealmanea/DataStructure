@@ -65,7 +65,7 @@ public class Search {
                         {
                                 this.Pointer.addFile(docID, word);
                                 this.indexBST.added(docID, word);
-                                this.invertedindex.addNew(docID, word);
+                                this.invertedindex.ADD(docID, word);
                                 this.indexAVL.added(docID, word);
                                 this.Rindex.addFile(docID,word);
                                 this.Rinvertedindex.ADD(docID,word);
@@ -112,8 +112,8 @@ public class Search {
         }
     }
 
-    public void RIndex(String str) {this.Rindex.TF(str);}
-    public void RInvertedIndex(String str) {this.Rindex.TF(str);}
+    public void RIndex(String str) {this.Rindex.FN(str);}
+    public void RInvertedIndex(String str) {this.Rinvertedindex.FN(str);}
     public void RepetitionRetrievalBST(String str) {bstrepetition.FN(str);}
     public void RepetitionRetrievalAVL(String str) {avlrepetition.FN(str);}
 
@@ -132,7 +132,7 @@ public class Search {
                     break;
                 case 2 :
                     System.out.println(" Boolean_Retrieval using inverted index list");
-                    docs = this.invertedindex.AND_OR_Function(str);
+                    docs = this.invertedindex.AO_Function(str);
                     break;
 
                 case 3:
