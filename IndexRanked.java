@@ -2,52 +2,52 @@ package com.mycompany.mavenproject8;
 
 public class IndexRanked {
     class File {
-        int docID;
-        LinkedList <String> index;
+        int docNumber;
+        LinkedList <String> pointer;
 
         public File() {
-            docID = 0;
-            index = new LinkedList <String>();
+            docNumber = 0;
+            pointer = new LinkedList <String>();
         }
 
         public void ADD (String word)
         {
-            index.insert(word);
+            pointer.insert(word);
         }
 
         public boolean found(String word)
         {
-            if (index.empty())
+            if (pointer.empty())
                 return false;
 
-            index.findFirst();
-            for ( int i = 0 ; i < index.count ; i++)
+            pointer.findFirst();
+            for ( int i = 0 ; i < pointer.count ; i++)
             {
-                if ( index.retrieve().compareTo(word) == 0)
+                if ( pointer.retrieve().compareTo(word) == 0)
                     return true;
-                index.findNext();
+                pointer.findNext();
             }
             return false;
         }
     }
 
-    File [] indexes;
+    File [] files;
     freq [] freqs;
 
 
     public IndexRanked() {
         freqs = new freq [50];
-        indexes = new File [50];
-        for ( int i = 0 ; i < indexes.length ; i++)
+        files = new File [50];
+        for (int i = 0; i < files.length ; i++)
         {
-            indexes [i] = new File();
-            indexes [i].docID = i;
+            files[i] = new File();
+            files[i].docNumber = i;
         }
     }
 
     public void addFile ( int docID, String data)
     {
-        indexes[docID].ADD(data);
+        files[docID].ADD(data);
     }
 
     public void FN(String str)
@@ -66,13 +66,13 @@ public class IndexRanked {
         {
             for ( int i = 0 ; i < words.length ; i++)
             {
-                indexes[docs].index.findFirst();
+                files[docs].pointer.findFirst();
                 int wordcount = 0;
-                for ( int x = 0 ; x < indexes[docs].index.size() ; x++ )
+                for (int x = 0; x < files[docs].pointer.size() ; x++ )
                 {
-                    if (indexes[docs].index.retrieve().compareTo(words[i])==0)
+                    if (files[docs].pointer.retrieve().compareTo(words[i])==0)
                         wordcount ++;
-                    indexes[docs].index.findNext();
+                    files[docs].pointer.findNext();
                 }
 
                 if (wordcount > 0)

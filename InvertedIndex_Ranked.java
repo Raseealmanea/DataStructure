@@ -9,10 +9,6 @@ public class InvertedIndex_Ranked {
         freqs = new freq[50];
     }
 
-    public int size()
-    {
-        return invertedindex.size();
-    }
 
     public boolean ADD (int docID, String word)
     {
@@ -56,7 +52,7 @@ public class InvertedIndex_Ranked {
         }
     }
 
-    public boolean found(String word)
+    public boolean FOUND(String word)
     {
         if (invertedindex.empty())
             return false;
@@ -71,26 +67,13 @@ public class InvertedIndex_Ranked {
         return false;
     }
 
-    public void printDocment()
-    {
-        if (this.invertedindex.empty())
-            System.out.println("Empty Inverted Index");
-        else
-        {
-            this.invertedindex.findFirst();
-            while ( ! this.invertedindex.last())
-            {
-                System.out.println(invertedindex.retrieve());
-                this.invertedindex.findNext();
-            }
-            System.out.println(invertedindex.retrieve());
-        }
-    }
 
-    public void FN(String str)
+
+
+    public void FN(String word)
     {
-        str = str.toLowerCase().trim();
-        String [] words = str.split(" ");
+        word = word.toLowerCase().trim();
+        String [] wordS = word.split(" ");
         freqs = new freq[50];
         for ( int i = 0 ; i < 50 ; i++ )
         {
@@ -99,9 +82,9 @@ public class InvertedIndex_Ranked {
             freqs[i].f = 0;
         }
 
-        for ( int i = 0 ; i < words.length ; i++)
+        for ( int i = 0 ; i < wordS.length ; i++)
         {
-            if (found (words[i]))
+            if (FOUND (wordS[i]))
             {
                 int [] docs = invertedindex.retrieve().getDocs();
                 for ( int j = 0 ; j < docs.length ; j ++)

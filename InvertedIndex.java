@@ -16,10 +16,10 @@ public class InvertedIndex {
     {
         if (invertedindex.empty())
         {
-            WordCount t = new WordCount ();
-            t.setVocab(new Vocab (word));
-            t.add_docNumber(docID);
-            invertedindex.insert(t);
+            WordCount wc = new WordCount ();
+            wc.setVocab(new Vocab (word));
+            wc.add_docNumber(docID);
+            invertedindex.insert(wc);
             return true;
         }
         else
@@ -29,26 +29,26 @@ public class InvertedIndex {
             {
                 if ( invertedindex.retrieve().word.word.compareTo(word) == 0)
                 {
-                    WordCount t = invertedindex.retrieve();
-                    t.add_docNumber(docID);
-                    invertedindex.update(t);
+                    WordCount wc = invertedindex.retrieve();
+                    wc.add_docNumber(docID);
+                    invertedindex.update(wc);
                     return false;
                 }
                 invertedindex.findNext();
             }
             if ( invertedindex.retrieve().word.word.compareTo(word) == 0)
             {
-                WordCount t = invertedindex.retrieve();
-                t.add_docNumber(docID);
-                invertedindex.update(t);
+                WordCount wc = invertedindex.retrieve();
+                wc.add_docNumber(docID);
+                invertedindex.update(wc);
                 return false;
             }
             else
             {
-                WordCount t = new WordCount ();
-                t.setVocab(new Vocab(word));
-                t.add_docNumber(docID);
-                invertedindex.insert(t);
+                WordCount wc = new WordCount ();
+                wc.setVocab(new Vocab(word));
+                wc.add_docNumber(docID);
+                invertedindex.insert(wc);
             }
             return true;
         }
@@ -68,94 +68,80 @@ public class InvertedIndex {
         }
         return false;
     }
-    public boolean [] AO_Function (String str )
+    public boolean [] AO_Function (String word )
     {
-        if (! str.contains(" OR ") && ! str.contains(" AND "))
+        if (! word.contains(" OR ") && ! word.contains(" AND "))
         {
-            boolean [] r1 = new boolean[50];
-            str = str.toLowerCase().trim();
+            boolean [] wo = new boolean[50];
+            word = word.toLowerCase().trim();
 
-            if (this.found (str))
-                r1 =  this.invertedindex.retrieve().getAllDoc();
-            return r1;
+            if (this.found (word))
+                wo =  this.invertedindex.retrieve().getAllDoc();
+            return wo;
         }
 
-        else if (str.contains(" OR ") && str.contains(" AND "))
+        else if (word.contains(" OR ") && word.contains(" AND "))
         {
-            String [] AND_ORs = str.split(" OR ");
-            boolean []  r1 = AND (AND_ORs[0]);
+            String [] ANDOR = word.split(" OR ");
+            boolean []  wo = AND (ANDOR[0]);
 
-            for ( int i = 1 ; i < AND_ORs.length ; i++  )
+            for ( int i = 1 ; i < ANDOR.length ; i++  )
             {
-                boolean [] r2 =AND (AND_ORs[i]);
+                boolean [] wo2 =AND (ANDOR[i]);
 
                 for ( int j = 0 ; j < 50 ; j++ )
-                    r1 [j] = r1[j] || r2[j];
+                    wo [j] = wo[j] || wo2[j];
             }
-            return r1;
+            return wo;
         }
 
-        else  if (str.contains(" AND "))
-            return AND (str);
+        else  if (word.contains(" AND "))
+            return AND (word);
 
-        return OR (str);
+        return OR (word);
     }
 
-    public boolean [] AND (String str)
+    public boolean [] AND (String word)
     {
-        String [] ANDs = str.split(" AND ");
-        boolean [] b1 = new boolean [50];
+        String [] AND= word.split(" AND ");
+        boolean [] w1 = new boolean [50];
 
-        if (this.found (ANDs[0].toLowerCase().trim()))
-            b1 = this.invertedindex.retrieve().getAllDoc();
+        if (this.found (AND[0].toLowerCase().trim()))
+            w1 = this.invertedindex.retrieve().getAllDoc();
 
-        for ( int i = 1 ; i< ANDs.length ; i++)
+        for ( int i = 1 ; i< AND.length ; i++)
         {
-            boolean [] b2 = new boolean [50];
-            if (this.found (ANDs[i].toLowerCase().trim()))
-                b2 = this.invertedindex.retrieve().getAllDoc();
+            boolean [] w2 = new boolean [50];
+            if (this.found (AND[i].toLowerCase().trim()))
+                w2 = this.invertedindex.retrieve().getAllDoc();
 
             for ( int j = 0 ; j < 50 ; j++)
-                b1 [j] = b1[j] && b2[j];
+                w1 [j] = w1[j] && w2[j];
         }
 
-        return b1;
+        return w1;
     }
 
-    public boolean [] OR (String str)
+    public boolean [] OR (String word)
     {
-        String [] ORs = str.split(" OR ");
-        boolean [] b1 = new boolean [50];
+        String [] OR = word.split(" OR ");
+        boolean [] w1 = new boolean [50];
 
-        if (this.found (ORs[0].toLowerCase().trim()))
-            b1 = this.invertedindex.retrieve().getAllDoc();
+        if (this.found (OR[0].toLowerCase().trim()))
+            w1 = this.invertedindex.retrieve().getAllDoc();
 
-        for ( int i = 1 ; i< ORs.length ; i++)
+        for (int i = 1; i< OR.length ; i++)
         {
-            boolean [] b2 = new boolean [50];
-            if (this.found (ORs[i].toLowerCase().trim()))
-                b2 = this.invertedindex.retrieve().getAllDoc();
+            boolean [] w2 = new boolean [50];
+            if (this.found (OR[i].toLowerCase().trim()))
+                w2 = this.invertedindex.retrieve().getAllDoc();
 
             for ( int j = 0 ; j < 50 ; j++)
-                b1 [j] = b1[j] || b2[j];
+                w1[j] = w1[j] || w2[j];
 
         }
-        return b1;
+        return w1;
     }
 
-    public void printDocment()
-    {
-        if (this.invertedindex.empty())
-            System.out.println("Empty Inverted Index");
-        else
-        {
-            this.invertedindex.findFirst();
-            while ( ! this.invertedindex.last())
-            {
-                System.out.println(invertedindex.retrieve());
-                this.invertedindex.findNext();
-            }
-            System.out.println(invertedindex.retrieve());
-        }
-    }
+
 }
